@@ -72,7 +72,7 @@ img.avatar {
           <input type="text" v-model="email" placeholder="Enter Email" name="email" required>
           <label for="password"><b>Password</b></label>
           <input type="password" v-model="password" placeholder="Enter Password" name="password" required>
-          <button type="button">Login</button>
+          <button type="button" @click="doLogin">Login</button>
         </div>
         <div class="container" style="background-color:#f1f1f1">
           <span style="float: left">Forgot <a href="/forget-password">password?</a></span>
@@ -84,7 +84,8 @@ img.avatar {
 </template>
 
 <script>
-const axios = require('axios')
+// eslint-disable-next-line no-unused-vars
+import axios, * as others from 'axios'
 export default {
   name: 'Login',
   data: function () {
@@ -105,20 +106,14 @@ export default {
         })
         console.log(response)
         if (response.status === 200) {
+          localStorage.setItem('token', JSON.stringify(response.data.data.token))
+          localStorage.setItem('auth_user', JSON.stringify(response.data.data.user))
           await this.$router.push({ path: '/home' })
+        } else if (response.status === 401) {
+          alert('Invalid credentials!')
+        } else {
+          alert('Something went wrong!')
         }
-        // eslint-disable-next-line no-inner-declarations
-        // async function login(email, password) {
-        //   const response = await axios.post(this.baseUrl + '/login', {
-        //     email: email,
-        //     password: password
-        //   })
-        //   console.log(response)
-        //   if (response.status === 200) {
-        //     await this.$router.push({path: '/home'})
-        //   }
-        // }
-        // login(this.emailLogin, this.passwordLogin);
       }
     }
   }

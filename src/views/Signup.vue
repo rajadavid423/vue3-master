@@ -63,18 +63,18 @@ img.avatar {
   <div class="login">
     <h1>Sign Up</h1>
     <div id="id01">
-      <form class="modal-content animate" action="/action_page.php" method="post">
+      <form class="modal-content animate">
         <div class="imgcontainer">
           <img src="../assets/logo.png" width="100" height="100" alt="Avatar" class="avatar">
         </div>
         <div class="container">
           <label for="name"><b>Name</b></label>
-          <input type="text" placeholder="Enter Name" name="name" required>
+          <input type="text" v-model="name" placeholder="Enter Name" name="name" required>
           <label for="email"><b>Email</b></label>
-          <input type="text" placeholder="Enter Email" name="email" required>
+          <input type="text" v-model="email" placeholder="Enter Email" name="email" required>
           <label for="password"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="password" required>
-          <button type="button">Signup</button>
+          <input type="password" v-model="password" placeholder="Enter Password" name="password" required>
+          <button type="button" @click="doRegister">Signup</button>
         </div>
         <div class="container" style="background-color:#f1f1f1">
           <span style="float: left">Forgot <a href="/forget-password">password?</a></span>
@@ -84,6 +84,39 @@ img.avatar {
     </div>
   </div>
 </template>
-
-<script setup>
+<script>
+// eslint-disable-next-line no-unused-vars
+import axios, * as others from 'axios'
+export default {
+  name: 'Signup',
+  data: function () {
+    return {
+      name: '',
+      email: '',
+      password: '',
+      baseUrl: 'http://localhost:8000/api'
+    }
+  },
+  methods: {
+    async doRegister() {
+      if (this.name === '' || this.email === '' || this.password === '') {
+        alert('All fields are required!')
+      } else {
+        const response = await axios.post(this.baseUrl + '/register', {
+          name: this.name,
+          email: this.email,
+          password: this.password
+        })
+        console.log(response)
+        if (response.status === 201) {
+          await this.$router.push({ path: '/login' })
+        } else if (response.status === 422) {
+          alert('Invalid Data!')
+        } else {
+          alert('Something went wrong!')
+        }
+      }
+    }
+  }
+}
 </script>

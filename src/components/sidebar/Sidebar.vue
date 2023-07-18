@@ -7,6 +7,17 @@ export default {
   components: { SidebarLink },
   setup() {
     return { collapsed, toggleSidebar, sidebarWidth }
+  },
+  data() {
+    return { isAuthorized: false, authUserName: '' }
+  },
+  mounted() {
+    let token = JSON.parse(localStorage.getItem('token'))
+    if (token !== '') {
+      let user = JSON.parse(localStorage.getItem('auth_user'))
+      this.isAuthorized = true
+      this.authUserName = user.name
+    }
   }
 }
 </script>
@@ -19,8 +30,11 @@ export default {
       </span>
       <span v-else>Vue Sidebar</span>
     </h1>
+    <h3 v-if="isAuthorized && !collapsed">
+      <span>Welcome {{ authUserName }}!</span>
+    </h3>
 
-    <SidebarLink to="/" icon="fas fa-home">Home</SidebarLink>
+    <SidebarLink to="/home" icon="fas fa-home">Home</SidebarLink>
     <SidebarLink to="/dashboard" icon="fas fa-columns">Dashboard</SidebarLink>
     <SidebarLink to="/analytics" icon="fas fa-chart-bar">Analytics</SidebarLink>
     <SidebarLink to="/users" icon="fas fa-users">Users</SidebarLink>
