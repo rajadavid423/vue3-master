@@ -25,13 +25,11 @@ export default {
 <template>
   <div class="sidebar" :style="{ width: sidebarWidth }">
     <h1>
-      <span v-if="collapsed">
-        <div>V3</div>
-      </span>
-      <span v-else>Vue Sidebar</span>
+      <span v-if="collapsed">V</span>
+      <span v-else><h2>Vue Sidebar</h2></span>
     </h1>
     <h3 v-if="isAuthorized && !collapsed">
-      <span>Welcome {{ authUserName }}!</span>
+      <span><h4>Welcome {{ authUserName }}!</h4></span>
     </h3>
 
     <SidebarLink to="/home" icon="fas fa-home">Home</SidebarLink>
