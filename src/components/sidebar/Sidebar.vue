@@ -39,7 +39,7 @@ export default {
     <SidebarLink to="/about" icon="fas fa-book-reader">About</SidebarLink>
     <SidebarLink to="/profile" icon="fas fa-user">Profile</SidebarLink>
     <br />
-    <SidebarLink to="/image" icon="fas fa-power">Logout</SidebarLink>
+    <SidebarLink to="/image" icon="fas fa-power-off">Logout</SidebarLink>
 
     <span
       class="collapse-icon"
