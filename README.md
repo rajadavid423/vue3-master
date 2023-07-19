@@ -1,24 +1,18 @@
 # vue3-sidebar
 
-## Project setup
+## Project - Setup
 ```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
+npm install
 ```
 
-### Compiles and minifies for production
+### Project - Run
 ```
-yarn build
+npm run serve
 ```
+<img src="https://drive.google.com/uc?export=view&id=1Tm6spfWVvAdf0vOs494TDHWN7p6pteg8">
 
-### Lints and fixes files
-```
-yarn lint
-```
+<img src="https://drive.google.com/uc?export=view&id=1PajElgqtBfL71gsUIcXHsU8LHd24oMfz">
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+<img src="https://drive.google.com/uc?export=view&id=1Jxoyr1WYIMSpA8axiLKu3DNYr2ZEBoYY">
+
+<img src="https://drive.google.com/uc?export=view&id=143nwXEmJBiFBbxCJzai-Iqw6CYGU0nd7">
