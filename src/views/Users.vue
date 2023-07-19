@@ -2,7 +2,7 @@
   <Sidebar />
   <div :style="{ 'margin-left': sidebarWidth }">
     <div class="about">
-      <h1>Users Page</h1>
+      <h1 class="mt-3">Users Page</h1>
     </div>
   </div>
 </template>

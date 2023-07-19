@@ -2,7 +2,7 @@
   <Sidebar />
   <div :style="{ 'margin-left': sidebarWidth }">
     <div class="about">
-      <h1>Analytics Page</h1>
+      <h1 class="mt-3">Analytics Page</h1>
       <DoughnutChart :chartData="testData" />
     </div>
   </div>
@@ -28,7 +28,7 @@ export default {
       datasets: [
         {
           data: [30, 40, 60, 70, 5],
-          backgroundColor: ['#77ff82', '#dc2433', '#0a4f02', '#48a3ee', '#A5C8ED'],
+          backgroundColor: ['#9d5f18', '#39b7a1', '#c5a72b', '#3986c5', '#A5C8ED'],
         }
       ]
     }

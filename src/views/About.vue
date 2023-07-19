@@ -2,7 +2,7 @@
   <Sidebar />
   <div :style="{ 'margin-left': sidebarWidth }">
     <div class="about">
-      <h1>About Page</h1>
+      <h1 class="mt-3">About Page</h1>
       <div class="container-fluid">
         <b-skeleton-wrapper>
           <b-card>
