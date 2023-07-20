@@ -1,6 +1,7 @@
 <script>
 import SidebarLink from './SidebarLink'
 import { collapsed, toggleSidebar, sidebarWidth } from './state'
+import axios from 'axios'
 
 export default {
   props: {},
@@ -9,14 +10,40 @@ export default {
     return { collapsed, toggleSidebar, sidebarWidth }
   },
   data() {
-    return { isAuthorized: false, authUserName: '' }
+    return {
+      isAuthorized: false,
+      authUserName: '',
+      baseUrl: 'http://localhost:8000/api'
+    }
   },
   mounted() {
     let token = JSON.parse(localStorage.getItem('token'))
-    if (token !== '') {
+    if (token && token !== '') {
       let user = JSON.parse(localStorage.getItem('auth_user'))
       this.isAuthorized = true
       this.authUserName = user.name
+    }
+  },
+  methods: {
+    async doLogout() {
+      let token = JSON.parse(localStorage.getItem('token'))
+      const headers = {
+        Authorization: 'Bearer ' + token,
+        'My-Custom-Header': 'foobar'
+      }
+      const response = await axios.get(this.baseUrl + '/logout', { headers })
+      console.log(response)
+      if (response.status === 200) {
+        localStorage.removeItem('token')
+        localStorage.removeItem('auth_user')
+        await this.$router.push({ path: '/login' })
+      } else if (response.status === 401) {
+        alert('Invalid credentials!')
+        await this.$router.push({ path: '/login' })
+      } else {
+        alert('Something went wrong!')
+        await this.$router.push({ path: '/login' })
+      }
     }
   }
 }
@@ -29,7 +56,9 @@ export default {
       <span v-else><h2>Vue Sidebar</h2></span>
     </h1>
     <h3 v-if="isAuthorized && !collapsed">
-      <span><h4>Welcome {{ authUserName }}!</h4></span>
+      <span>
+        <h4>Welcome {{ authUserName }}!</h4>
+      </span>
     </h3>
 
     <SidebarLink to="/home" icon="fas fa-home">Home</SidebarLink>
@@ -39,7 +68,7 @@ export default {
     <SidebarLink to="/about" icon="fas fa-book-reader">About</SidebarLink>
     <SidebarLink to="/profile" icon="fas fa-user">Profile</SidebarLink>
     <br />
-    <SidebarLink to="/image" icon="fas fa-power-off">Logout</SidebarLink>
+    <span @click="doLogout" class="float-start me-5"><i class="fas fa-power-off me-3"></i>Logout</span>
 
     <span
       class="collapse-icon"
