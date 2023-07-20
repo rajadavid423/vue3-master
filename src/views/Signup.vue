@@ -86,7 +86,7 @@ img.avatar {
 </template>
 <script>
 // eslint-disable-next-line no-unused-vars
-import axios, * as others from 'axios'
+import axios from 'axios'
 export default {
   name: 'Signup',
   data: function () {

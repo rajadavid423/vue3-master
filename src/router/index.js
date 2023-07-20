@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
 import Home from '../views/Home.vue'
 
 const routes = [
@@ -10,32 +11,38 @@ const routes = [
   {
     path: '/home',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: { needsAuth: true }
   },
   {
     path: '/dashboard',
     name: 'Dashboard',
-    component: () => import('../views/Dashboard.vue')
+    component: () => import('../views/Dashboard.vue'),
+    meta: { needsAuth: true }
   },
   {
     path: '/analytics',
     name: 'Analytics',
-    component: () => import('../views/Analytics.vue')
+    component: () => import('../views/Analytics.vue'),
+    meta: { needsAuth: true }
   },
   {
     path: '/users',
     name: 'Users',
-    component: () => import('../views/Users.vue')
+    component: () => import('../views/Users.vue'),
+    meta: { needsAuth: true }
   },
   {
     path: '/about',
     name: 'About',
-    component: () => import('../views/About.vue')
+    component: () => import('../views/About.vue'),
+    meta: { needsAuth: true }
   },
   {
     path: '/profile',
     name: 'Profile',
-    component: () => import('../views/Profile.vue')
+    component: () => import('../views/Profile.vue'),
+    meta: { needsAuth: true }
   },
   {
     path: '/login',
@@ -52,6 +59,16 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.needsAuth && !localStorage.getItem('token')) {
+    next('/login')
+  } else if ((to.name === 'Login' || to.name === 'Signup') && localStorage.getItem('token')) {
+    next('/home')
+  } else {
+    next()
+  }
 })
 
 export default router
